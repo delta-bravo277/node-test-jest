@@ -14,9 +14,12 @@ jobs:
       - run: npm install
       # - run: npm run build --if-present
       - run: npm run test
-  CD:
+
+  TAG:
     needs: CI
     runs-on: ubuntu-latest
+    outputs:
+      PART: ${{ steps.get-tag.outputs.part }}
     steps:
       - uses: actions/checkout@v3
       
@@ -27,8 +30,23 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           DEFAULT_BUMP: none
+        
+  CD:
+    needs: [CI,TAG]
+    if: ${{ needs.TAG.outputs.PART != 'none' || needs.TAG.outputs.PART != 'none' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      # - name: Assign TAG
+      #   id: get-tag
+      #   uses: delta-bravo277/github-action-tag@main
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     WITH_V: true
+      #     DEFAULT_BUMP: none
       
       - name: "CI+CD"
-        if: ${{ steps.get-tag.outputs.part != 'none' || steps.get-tag.outputs.part != 'none' }}
+        # if: ${{ steps.get-tag.outputs.part != 'none' || steps.get-tag.outputs.part != 'none' }}
         run: echo "Success!"
     
