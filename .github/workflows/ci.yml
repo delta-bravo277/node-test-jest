@@ -26,7 +26,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           DEFAULT_BUMP: none
+
   CD:
+    if: ${{ steps.get-tag.outputs.part != '0' || steps.get-tag.outputs.part != '' }}
     needs: [CI,TAG]
     runs-on: ubuntu-latest
     steps:
