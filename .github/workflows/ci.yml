@@ -22,6 +22,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+     
+
+  CD:
+    needs: CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
       - name: Assign TAG
         id: get-tag
         uses: delta-bravo277/github-action-tag@main
@@ -29,15 +37,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           DEFAULT_BUMP: none
-
-  CD:
-    needs: [CI,TAG]
-    if: ${{ needs.TAG.outputs.part != '0' || needs.TAG.outputs.part != '' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+      
       - name: "CI+CD"
-        env:
-          PART: ${{ needs.TAG.outputs.part }}
-        run: echo "Success! $PART"
+        if: ${{ steps.get-tag.outputs.part != 'none' || steps.get-tag.outputs.part != 'none' }}
+        run: echo "Success!"
     
