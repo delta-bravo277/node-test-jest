@@ -1,0 +1,65 @@
+name: Node.js CI
+
+on: 
+  push:
+    branches:
+      - dev
+    # paths:
+    #   - ".github/workflows/ci.yml"
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+   
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '12'
+      - run: npm install
+      # - run: npm run build --if-present
+      - run: npm run test
+
+  Checking-Tag:
+    needs: CI
+    runs-on: ubuntu-latest
+    outputs:
+      PART: ${{ steps.get-tag.outputs.part }}
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Assign TAG
+        id: get-tag
+        uses: delta-bravo277/github-action-tag@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DEFAULT_BUMP: none
+        
+  CD:
+    needs: [CI,Checking-Tag]
+    if: ${{ needs.Checking-Tag.outputs.PART != 'none' || needs.Checking-Tag.outputs.PART != 'none' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      # - name: Assign TAG
+      #   id: get-tag
+      #   uses: delta-bravo277/github-action-tag@main
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     WITH_V: true
+      #     DEFAULT_BUMP: none
+      
+      - name: "CI+CD"
+        env:
+          PART: ${{ needs.Checking-Tag.outputs.PART }}
+        # if: ${{ steps.get-tag.outputs.part != 'none' || steps.get-tag.outputs.part != 'none' }}
+        run: echo "Success! $PART"
+    
