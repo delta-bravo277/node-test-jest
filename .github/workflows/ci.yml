@@ -18,7 +18,7 @@ jobs:
     needs: CI
     runs-on: ubuntu-latest
     outputs:
-      tag: ${{ steps.get-tag.outputs.tag }}
+      part: ${{ steps.get-tag.outputs.part }}
     steps:
       - uses: actions/checkout@v3
 
@@ -32,12 +32,12 @@ jobs:
 
   CD:
     needs: [CI,TAG]
-    if: ${{ needs.TAG.outputs.tag != '0' || needs.TAG.outputs.tag != '' }}
+    if: ${{ needs.TAG.outputs.part != '0' || needs.TAG.outputs.part != '' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: "CI+CD"
         env:
-          TAG: ${{ needs.TAG.outputs.tag }}
+          PART: ${{ needs.TAG.outputs.part }}
         run: echo "Success! $TAG"
     
