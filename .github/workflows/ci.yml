@@ -39,5 +39,5 @@ jobs:
       - name: "CI+CD"
         env:
           PART: ${{ needs.TAG.outputs.part }}
-        run: echo "Success! $TAG"
+        run: echo "Success! $PART"
     
