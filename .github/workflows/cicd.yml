@@ -26,7 +26,7 @@ jobs:
       - run: npm run test
 
   Checking-Tag:
-    if: ${GITHUB_REF##*/} != 'main'
+    if: ${{GITHUB_REF##*/ != 'main' }}
     needs: CI
     runs-on: ubuntu-latest
     outputs:
