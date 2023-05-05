@@ -31,8 +31,8 @@ jobs:
           DEFAULT_BUMP: none
 
   CD:
-    if: ${{ needs.TAG.outputs.tag != '0' || needs.TAG.outputs.tag != '' }}
     needs: [CI,TAG]
+    if: ${{ needs.TAG.outputs.tag != '0' || needs.TAG.outputs.tag != '' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
