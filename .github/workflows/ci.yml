@@ -47,6 +47,8 @@ jobs:
       #     DEFAULT_BUMP: none
       
       - name: "CI+CD"
+        env:
+          PART: ${{ needs.Checking-Tag.outputs.PART }}
         # if: ${{ steps.get-tag.outputs.part != 'none' || steps.get-tag.outputs.part != 'none' }}
-        run: echo "Success!"
+        run: echo "Success! $PART"
     
