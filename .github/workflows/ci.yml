@@ -15,7 +15,7 @@ jobs:
       # - run: npm run build --if-present
       - run: npm run test
 
-  TAG:
+  Checking-Tag:
     needs: CI
     runs-on: ubuntu-latest
     outputs:
@@ -32,8 +32,8 @@ jobs:
           DEFAULT_BUMP: none
         
   CD:
-    needs: [CI,TAG]
-    if: ${{ needs.TAG.outputs.PART != 'none' || needs.TAG.outputs.PART != 'none' }}
+    needs: [CI,Checking-Tag]
+    if: ${{ needs.Checking-Tag.outputs.PART != 'none' || needs.Checking-Tag.outputs.PART != 'none' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
