@@ -26,6 +26,7 @@ jobs:
       - run: npm run test
 
   Checking-Tag:
+    if: ${GITHUB_REF##*/} != 'main'
     needs: CI
     runs-on: ubuntu-latest
     outputs:
@@ -60,5 +61,6 @@ jobs:
         env:
           PART: ${{ needs.Checking-Tag.outputs.PART }}
         # if: ${{ steps.get-tag.outputs.part != 'none' || steps.get-tag.outputs.part != 'none' }}
-        run: echo "Success! $PART"
-    
+        run: |
+          echo "Success! $PART"
+          echo "${GITHUB_REF##*/}"
