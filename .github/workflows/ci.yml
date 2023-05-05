@@ -16,6 +16,8 @@ jobs:
       - run: npm run test
   TAG:
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.get-tag.outputs.part }}
     steps:
       - uses: actions/checkout@v3
 
@@ -28,7 +30,7 @@ jobs:
           DEFAULT_BUMP: none
 
   CD:
-    if: ${{ steps.get-tag.outputs.part != '0' || steps.get-tag.outputs.part != '' }}
+    if: ${{ needs.CI.outputs.tag != '0' || needs.CI.outputs.tag != '' }}
     needs: [CI,TAG]
     runs-on: ubuntu-latest
     steps:
