@@ -15,6 +15,7 @@ jobs:
       # - run: npm run build --if-present
       - run: npm run test
   TAG:
+    needs: CI
     runs-on: ubuntu-latest
     outputs:
       tag: ${{ steps.get-tag.outputs.part }}
