@@ -37,5 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: "CI+CD"
-        run: echo "Success! CI+CD"
+        env:
+          TAG: ${{ needs.TAG.outputs.tag }}
+        run: echo "Success! $TAG"
     
