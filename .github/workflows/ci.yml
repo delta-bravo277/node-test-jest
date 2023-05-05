@@ -14,8 +14,20 @@ jobs:
       - run: npm install
       # - run: npm run build --if-present
       - run: npm run test
+  TAG:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Assign TAG
+        id: get-tag
+        uses: delta-bravo277/github-action-tag@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          DEFAULT_BUMP: none
   CD:
-    needs: CI
+    needs: [CI,TAG]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
