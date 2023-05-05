@@ -18,7 +18,7 @@ jobs:
     needs: CI
     runs-on: ubuntu-latest
     outputs:
-      tag: ${{ steps.get-tag.outputs.part }}
+      tag: ${{ steps.get-tag.outputs.tag }}
     steps:
       - uses: actions/checkout@v3
 
@@ -31,7 +31,7 @@ jobs:
           DEFAULT_BUMP: none
 
   CD:
-    needs: [TAG]
+    needs: [CI,TAG]
     if: ${{ needs.TAG.outputs.tag != '0' || needs.TAG.outputs.tag != '' }}
     runs-on: ubuntu-latest
     steps:
