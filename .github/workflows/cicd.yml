@@ -3,14 +3,11 @@ on:
   push:
     branches:
       - dev
-    # paths:
-    #   - ".github/workflows/ci.yml"
   pull_request:
     types:
       - closed
     branches:
       - main
-   
 
 jobs:
   CI:
@@ -60,5 +57,6 @@ jobs:
         env:
           PART: ${{ needs.Checking-Tag.outputs.PART }}
         # if: ${{ steps.get-tag.outputs.part != 'none' || steps.get-tag.outputs.part != 'none' }}
-        run: echo "Success! $PART"
-    
+        run: |
+          echo "Success! $PART"
+          echo "${GITHUB_REF##*/}"
