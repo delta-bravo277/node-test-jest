@@ -19,6 +19,6 @@ test('Multiplication: Throw Error when inputs are not numbers', async () => {
 })
 
 test('Multiplying two numbers', async () => {
-    expect(multiply(10, 10)).toStrictEqual(100)
+    expect(multiply(10, 10)).toStrictEqual(10)
     expect(multiply(200, 100)).toStrictEqual(20000)
 })

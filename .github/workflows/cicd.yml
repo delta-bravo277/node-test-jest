@@ -1,16 +1,13 @@
 name: Node.js CI
 on: 
-  # push:
-  #   branches:
-  #     - dev
-    # paths:
-    #   - ".github/workflows/ci.yml"
+  push:
+    branches:
+      - dev
   pull_request:
     types:
       - closed
     branches:
       - main
-   
 
 jobs:
   CI:
