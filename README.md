@@ -6,4 +6,6 @@ no bump
 #patch
 
 test on dev
-all test pass
+all test passed
+
+PR
