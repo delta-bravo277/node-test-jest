@@ -1,4 +1,4 @@
-name: Deployment
+name: Deployment-prod
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deployment:
+  deployment-prod:
     runs-on: ubuntu-latest
     environment: PROD
     steps:
