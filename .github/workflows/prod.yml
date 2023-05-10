@@ -1,13 +1,13 @@
 name: Deployment-prod
 on:
-  push:
-    branches:
-      - dev
-  # pull_request:
-  #   types:
-  #     - closed
+  # push:
   #   branches:
-  #     - main
+  #     - dev
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
 
 jobs:
   CHK_TAG:  
