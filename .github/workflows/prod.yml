@@ -1,5 +1,4 @@
 name: Deployment-prod
-
 on:
   push:
     branches:
@@ -11,7 +10,6 @@ on:
   #     - main
 
 jobs:
-
   CHK_TAG:  
     runs-on: ubuntu-latest
     outputs:
