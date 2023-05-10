@@ -3,7 +3,7 @@ name: Deployment-prod
 on:
   push:
     branches:
-      - main
+      - dev
 
 jobs:
   deployment-prod:
